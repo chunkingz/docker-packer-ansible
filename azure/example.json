@@ -1,0 +1,44 @@
+{
+    "builders": [
+        {
+            "type": "azure-arm",
+
+            "client_id": "{{ user `client_id` }}",
+            "client_secret": "{{ user `client_secret` }}",
+            "subscription_id": "{{ user `subscription_id` }}",
+
+            "os_type": "Linux",
+            "image_publisher": "Canonical",
+            "image_offer": "UbuntuServer",
+            "image_sku": "18.04-LTS",
+
+            "location": "East US",
+            "vm_size": "Standard_DS1_v2",
+
+            "managed_image_name": "{{ user `image_name` }}_{{ timestamp }}",
+            "managed_image_resource_group_name": "{{ user `rg_name` }}"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "setup.sh"
+        },
+        {
+            "type": "file",
+            "source": "index.html",
+            "destination": "/tmp/"
+        },
+        {
+            "type": "shell",
+            "inline": "sudo cp /tmp/index.html /var/www/html/"
+        }
+    ],
+    "post-processors": [
+        {
+            "type": "manifest",
+            "output": "{{ user `manifest` }}"
+        }
+    ],
+    "sensitive-variables": ["client_id", "client_secret", "subscription_id"]
+}

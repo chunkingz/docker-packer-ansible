@@ -1,0 +1,9 @@
+
+{
+    "client_id": "",
+    "client_secret": "",
+    "subscription_id": "",
+    "image_name": "packer_image_",
+    "rg_name": "packer-demo-rg",
+    "manifest": "manifest.json"
+}

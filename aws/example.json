@@ -1,0 +1,29 @@
+{
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "region": "us-east-1",
+            "access_key": "",
+            "secret_key": "",
+            "instance_type": "t2.micro",
+            "source_ami": "",
+            "ami_name": "packer_AWS_{{ timestamp }}",
+            "ssh_username": "ubuntu"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "setup.sh"
+        },
+        {
+            "type": "file",
+            "source": "index.html",
+            "destination": "/tmp/"
+        },
+        {
+            "type": "shell",
+            "inline": "sudo cp /tmp/index.html /var/www/html/"
+        }
+    ]
+}

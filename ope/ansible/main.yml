@@ -1,0 +1,19 @@
+---
+- name: Install Git, MySQL, Nginx, and Web
+  hosts: all
+  become: true
+  become_method: sudo
+
+
+  pre_tasks:
+    - name: apt update and upgrade
+      package:
+        update_cache: true
+        force_apt_get: true
+
+
+  roles:
+    - git
+    - mysql
+    - nginx
+    - web
