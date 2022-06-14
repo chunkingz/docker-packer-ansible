@@ -1,0 +1,75 @@
+---
+
+- name: Create Azure VM
+  hosts: localhost
+  connection: local
+
+  vars_files:
+    - vars.yml
+
+  tasks:
+  - name: Create resource group
+    azure_rm_resourcegroup:
+      name: devops-rg
+      location: eastus
+
+  - name: Create virtual network
+    azure_rm_virtualnetwork:
+      resource_group: devops-rg
+      name: devops-vnet
+      address_prefixes: "10.0.0.0/16"
+
+  - name: Add subnet
+    azure_rm_subnet:
+      resource_group: devops-rg
+      name: devops-subnet
+      address_prefix: "10.0.1.0/24"
+      virtual_network: devops-vnet
+
+  - name: Create public IP address
+    azure_rm_publicipaddress:
+      resource_group: devops-rg
+      allocation_method: Static
+      name: devops-public-ip
+    register: output_ip_address
+
+  - name: Public IP of VM
+    debug:
+      msg: "The public IP is {{ output_ip_address.state.ip_address }}."
+
+  - name: Create Network Security Group that allows SSH, HTTP, and HTTPS
+    azure_rm_securitygroup:
+      resource_group: devops-rg
+      name: devops-nsg
+      rules:
+        - name: Allow SSH, HTTP, and HTTPS
+          protocol: Tcp
+          destination_port_range: 
+            - 22
+            - 80
+            - 443
+          access: Allow
+          priority: 1001
+          direction: Inbound
+
+  - name: Create virtual network interface card
+    azure_rm_networkinterface:
+      resource_group: devops-rg
+      name: devops-nic
+      virtual_network: devops-vnet
+      subnet: devops-subnet
+      public_ip_name: devops-public-ip
+      security_group: devops-nsg
+
+  - name: Create VM
+    azure_rm_virtualmachine:
+      resource_group: devops-rg
+      name: "{{ vm_name }}"
+      vm_size: Standard_DS1_v2
+      admin_username: "{{ user }}"
+      admin_password: "{{ pass }}"
+      network_interfaces: devops-nic
+      image:
+        name: "{{ custom_image }}"
+
+

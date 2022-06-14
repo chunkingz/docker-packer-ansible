@@ -46,8 +46,10 @@ packer build -only=foo,bar example.json
 
 ## How to use
 
+cd into ansible directory
+
 ```
-ansible-playbook -i inventory --private-key=ssh_key.pem main.yml -u userTobeLoggedInAs
+ansible-playbook -i inventory --private-key=key.pem main-2.yml -u azureuser
 ```
 
 - run the main ansible playbook on the inventory using the ssh key and log in as the specified user.

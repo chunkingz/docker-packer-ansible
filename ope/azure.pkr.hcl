@@ -32,7 +32,12 @@ variable "manifest" {
   default = ""
 }
 
-source "azure-arm" "example" {
+variable "ansible_user" {
+  type = string
+  default = ""
+}
+
+source "azure-arm" "devops" {
   client_id         = "${var.client_id}"
   client_secret     = "${var.client_secret}"
   subscription_id   = "${var.subscription_id}"
@@ -47,14 +52,18 @@ source "azure-arm" "example" {
 
   managed_image_name = "${var.image_name}_{{ timestamp }}"
   managed_image_resource_group_name = "${var.rg_name}"
+
+  azure_tags = {
+    Release = "Latest"
+  }
 }
 
 build {
-    sources = ["source.azure-arm.example"]
+    sources = ["source.azure-arm.devops"]
 
     provisioner "ansible" {
-        playbook_file = "ansible/main.yml"
-        roles_path    = "ansible/roles/"
+        playbook_file = "ansible/main2.yml"
+        # roles_path    = "ansible/roles/"
         user = "${var.ansible_user}"
     }
 

@@ -1,8 +1,9 @@
 ---
 
 - name: 'Provision Image using Ansible'
-  hosts: default
+  hosts: all
   become: true
+  become_method: sudo
 
 
   handlers:
@@ -12,6 +13,12 @@
         state: restarted
 
   tasks:
+    - name: Update and upgrade apt packages
+      package:
+        upgrade: true
+        update_cache: true
+        cache_valid_time: 259200 # three days
+
     - name: Ensure Apache is installed.
       package:
         name: 'apache2'

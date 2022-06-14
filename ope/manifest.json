@@ -1,0 +1,32 @@
+{
+  "builds": [
+    {
+      "name": "devops",
+      "builder_type": "azure-arm",
+      "build_time": 1654050232,
+      "files": null,
+      "artifact_id": "/subscriptions/581e11bf-0bca-44ea-93e8-79a4327246c6/resourceGroups/packer-demo-rg/providers/Microsoft.Compute/images/packer-image_1654049802",
+      "packer_run_uuid": "48a8557e-816a-71f0-745f-649731f62346",
+      "custom_data": null
+    },
+    {
+      "name": "devops",
+      "builder_type": "azure-arm",
+      "build_time": 1654050796,
+      "files": null,
+      "artifact_id": "/subscriptions/581e11bf-0bca-44ea-93e8-79a4327246c6/resourceGroups/packer-demo-rg/providers/Microsoft.Compute/images/packer-image_1654050482",
+      "packer_run_uuid": "7b751666-3958-7f6b-49b0-fa65500b2e4e",
+      "custom_data": null
+    },
+    {
+      "name": "devops",
+      "builder_type": "azure-arm",
+      "build_time": 1654051924,
+      "files": null,
+      "artifact_id": "/subscriptions/581e11bf-0bca-44ea-93e8-79a4327246c6/resourceGroups/packer-demo-rg/providers/Microsoft.Compute/images/packer-image_1654051595",
+      "packer_run_uuid": "a5a8ddd3-52ec-ef71-75ef-8dd8b948c7e6",
+      "custom_data": null
+    }
+  ],
+  "last_run_uuid": "a5a8ddd3-52ec-ef71-75ef-8dd8b948c7e6"
+}

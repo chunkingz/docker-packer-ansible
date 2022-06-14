@@ -1,0 +1,13 @@
+---
+
+user: azureuser
+pass: Azureuser1.
+
+
+vm_name: devops-vm
+
+# custom_image: packer-image_1653877369
+
+
+# ansible-playbook azure_main.yml -e "custom_image=packer-image_1653877369"
+
